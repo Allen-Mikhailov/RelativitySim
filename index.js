@@ -4,8 +4,16 @@ const objects = [
         Velocity: [100, 0],
         pos: [0, 0],
         color: "red"
+    },
+    {
+        Size: [20, 20],
+        Velocity: [120, -100],
+        pos: [0, 0],
+        color: "green"
     }
 ]
+
+const relative = objects[0]
 
 function updateObj(obj, deltatime)
 {
@@ -14,8 +22,8 @@ function updateObj(obj, deltatime)
         obj.pos[1]+obj.Velocity[1]*deltatime
     ]
 
-    obj.obj.style.left = obj.pos[0]+"px"
-    obj.obj.style.right = obj.pos[1]+"px"
+    obj.obj.style.left = obj.pos[0]-relative.pos[0]+"px"
+    obj.obj.style.top = -(obj.pos[1]-relative.pos[1])+"px"
 }
 
 objects.map((obj) => {
