@@ -1,0 +1,13 @@
+.shape {
+    left: 50%;
+    top: 50%;
+}
+
+.rect {
+    width: 100vw;
+    height: 100vh;
+}
+
+body {
+    margin: 0px;
+}

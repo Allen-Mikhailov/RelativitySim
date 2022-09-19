@@ -1,4 +1,4 @@
-const objects = [
+const startingobjects = [
     {
         Size: [20, 20],
         Velocity: [100, 0],
@@ -13,25 +13,40 @@ const objects = [
     }
 ]
 
-const relative = objects[0]
+function copyStarting()
+{
+    objects = JSON.parse(JSON.stringify(startingobjects))
+}
+
+var objects = []
+copyStarting()
+
+var relative = objects[0]
 
 function updateObj(obj, deltatime)
 {
     obj.pos = [
-        obj.pos[0]+obj.Velocity[0]*deltatime,
-        obj.pos[1]+obj.Velocity[1]*deltatime
+        Math.floor(obj.pos[0]+obj.Velocity[0]*deltatime),
+        Math.floor(obj.pos[1]+obj.Velocity[1]*deltatime)
     ]
-
-    obj.obj.style.left = obj.pos[0]-relative.pos[0]+"px"
-    obj.obj.style.top = -(obj.pos[1]-relative.pos[1])+"px"
+    obj.obj.style.transform = `translate(${
+        obj.pos[0]-relative.pos[0]-obj.Size[0]
+    }px, ${
+        -(obj.pos[1]-relative.pos[1] - obj.Size[1])
+    }px)`
 }
 
 objects.map((obj) => {
     const div = document.createElement("div")
+    div.className = "shape"
     div.style.backgroundColor = obj.color
     div.style.width = obj.Size[0]+"px"
     div.style.height = obj.Size[1]+"px"
     div.style.position = "absolute"
+
+    div.onclick = () => {
+        relative = obj
+    }
 
     document.body.appendChild(div)
     obj.obj = div
