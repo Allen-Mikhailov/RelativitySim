@@ -16,27 +16,31 @@ const startingobjects = [
 function copyStarting()
 {
     objects = JSON.parse(JSON.stringify(startingobjects))
+    relative = objects[relativeIndex]
 }
 
 var objects = []
+var divObjects = []
 copyStarting()
 
-var relative = objects[0]
+var relativeIndex = 0
+var relative = objects[relativeIndex]
 
-function updateObj(obj, deltatime)
+function updateObj(index, deltatime)
 {
+    const obj = objects[index]
     obj.pos = [
         Math.floor(obj.pos[0]+obj.Velocity[0]*deltatime),
         Math.floor(obj.pos[1]+obj.Velocity[1]*deltatime)
     ]
-    obj.obj.style.transform = `translate(${
+    divObjects[index].style.transform = `translate(${
         obj.pos[0]-relative.pos[0]-obj.Size[0]
     }px, ${
         -(obj.pos[1]-relative.pos[1] - obj.Size[1])
     }px)`
 }
 
-objects.map((obj) => {
+objects.map((obj, index) => {
     const div = document.createElement("div")
     div.className = "shape"
     div.style.backgroundColor = obj.color
@@ -45,11 +49,12 @@ objects.map((obj) => {
     div.style.position = "absolute"
 
     div.onclick = () => {
-        relative = obj
+        relativeIndex = index
+        relative = objects[index]
     }
 
     document.body.appendChild(div)
-    obj.obj = div
+    divObjects.push(div)
 })
 
 var lasttime = Date.now()
@@ -59,9 +64,11 @@ function update()
     const deltatime = (_time-lasttime)/1000
     lasttime = _time
 
-    objects.map((obj) => updateObj(obj, deltatime))
+    objects.map((obj, index) => updateObj(index, deltatime))
 
     requestAnimationFrame(update)
 }
+
+document.getElementById("reset").onclick = () => copyStarting()
 
 update()
