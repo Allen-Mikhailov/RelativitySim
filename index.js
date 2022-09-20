@@ -2,12 +2,14 @@ const startingobjects = [
     {
         Size: [20, 20],
         Velocity: [100, 0],
+        Acceleration: [0, 1],
         pos: [0, 0],
         color: "red"
     },
     {
         Size: [20, 20],
         Velocity: [120, -100],
+        Acceleration: [5, 0],
         pos: [0, 0],
         color: "green"
     }
@@ -21,6 +23,7 @@ function copyStarting()
 
 var objects = []
 var divObjects = []
+var velArrows = []
 copyStarting()
 
 var relativeIndex = 0
@@ -38,6 +41,14 @@ function updateObj(index, deltatime)
     }px, ${
         -(obj.pos[1]-relative.pos[1] - obj.Size[1])
     }px)`
+
+    velArrows[index].style.transform = `translate(${
+        -obj.Velocity[0]/2*0
+    }px, ${
+        -obj.Velocity[1]/2*0
+    }px) rotate(${Math.atan2(-obj.Velocity[1], obj.Velocity[0])}rad)`
+
+    velArrows[index].style.width = Math.sqrt(obj.Velocity[0]*obj.Velocity[0] + obj.Velocity[1]*obj.Velocity[1])+"px"
 }
 
 objects.map((obj, index) => {
@@ -47,6 +58,12 @@ objects.map((obj, index) => {
     div.style.width = obj.Size[0]+"px"
     div.style.height = obj.Size[1]+"px"
     div.style.position = "absolute"
+
+    const arrow = document.createElement("div")
+    arrow.className = "velArrow"
+    div.appendChild(arrow)
+    
+    velArrows.push(arrow)
 
     div.onclick = () => {
         relativeIndex = index

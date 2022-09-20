@@ -10,6 +10,14 @@
     pointer-events: none;
 }
 
+.velArrow {
+    pointer-events: none;
+    background-color: green;
+    /* left: 50%;
+    top: 50%; */
+    height: 2px;
+}
+
 body {
     margin: 0px;
     overflow: hidden;
