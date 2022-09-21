@@ -27,10 +27,24 @@
 }
 
 .arrowLeft {
-
+    position: relative;
+    width: 30px;
+    height: 2px;
+    left: calc(100% - 24px);
+    top: -11px;
+    transform: rotate(225deg);
+    background-color: blue;
 }
 
-.arrowRight
+.arrowRight {
+    position: relative;
+    width: 30px;
+    height: 2px;
+    left: calc(100% - 24px);
+    top: 10px;
+    transform: rotate(135deg);
+    background-color: blue;
+}
 
 body {
     margin: 0px;
