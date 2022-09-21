@@ -12,11 +12,25 @@
 
 .velArrow {
     pointer-events: none;
-    background-color: green;
-    /* left: 50%;
-    top: 50%; */
+    background-color: blue;
+    left: 50%;
+    top: 50%; 
     height: 2px;
 }
+
+.arrowMid {
+    /* left: 50%;
+    top: 50%; */
+    width: 0px;
+    height: 0px;
+    /* background-color: blue; */
+}
+
+.arrowLeft {
+
+}
+
+.arrowRight
 
 body {
     margin: 0px;
