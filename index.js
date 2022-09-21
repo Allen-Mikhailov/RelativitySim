@@ -1,14 +1,14 @@
 const startingobjects = [
     {
         Size: [20, 20],
-        Velocity: [100, 0],
+        Velocity: [500, 0],
         Acceleration: [0, 1],
         pos: [0, 0],
         color: "red"
     },
     {
         Size: [20, 20],
-        Velocity: [100, -50],
+        Velocity: [100, -25],
         Acceleration: [100, 0],
         pos: [0, 0],
         color: "green"
