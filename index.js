@@ -1,17 +1,24 @@
 const startingobjects = [
     {
         Size: [20, 20],
-        Velocity: [500, 0],
-        Acceleration: [0, 1],
+        Velocity: [100, 0],
+        Acceleration: [0, -9.8],
         pos: [0, 0],
         color: "red"
     },
     {
-        Size: [20, 20],
-        Velocity: [100, -25],
-        Acceleration: [100, 0],
+        Size: [50, 20],
+        Velocity: [100, 0],
+        Acceleration: [0, 0],
         pos: [0, 0],
         color: "green"
+    },
+    {
+        Size: [20, 20],
+        Velocity: [0, 0],
+        Acceleration: [0, 0],
+        pos: [300, -200],
+        color: "blue"
     }
 ]
 
@@ -27,8 +34,11 @@ var arrows = []
 var arrowMids = []
 copyStarting()
 
-var relativeIndex = 0
+var VarsRelative = false
+var relativeIndex = 1
 var relative = objects[relativeIndex]
+
+var objDataText = ""
 
 function updateObj(index, deltatime)
 {
@@ -41,6 +51,16 @@ function updateObj(index, deltatime)
     obj.Velocity[0] += obj.Acceleration[0]*deltatime
     obj.Velocity[1] += obj.Acceleration[1]*deltatime
 
+    if (VarsRelative)
+        objDataText += `
+    Object: ${index}
+    Position: ${(obj.pos[0] - relative.pos[0]).toFixed(2)}, ${(obj.pos[1] - relative.pos[0]).toFixed(2)}
+    `
+    else
+        objDataText += `
+    Object: ${index}
+    Position: ( ${obj.pos[0].toFixed(2)}, ${obj.pos[1].toFixed(2)} )
+    `
 
     divObjects[index].style.transform = `translate(${
         Math.floor(obj.pos[0]-relative.pos[0])-obj.Size[0]/2
@@ -96,6 +116,8 @@ objects.map((obj, index) => {
     divObjects.push(div)
 })
 
+const objText = document.getElementById("objectText")
+
 var lasttime = Date.now()
 function update()
 {
@@ -103,7 +125,9 @@ function update()
     const deltatime = (_time-lasttime)/1000
     lasttime = _time
 
+    objDataText = ""
     objects.map((obj, index) => updateObj(index, deltatime))
+    objText.innerHTML = objDataText
 
     requestAnimationFrame(update)
 }
